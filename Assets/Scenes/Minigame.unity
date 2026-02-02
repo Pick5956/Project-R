@@ -119,6 +119,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+<<<<<<< HEAD
 --- !u!1 &66450230
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,6 +198,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> main
 --- !u!1 &203844586
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +450,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
+<<<<<<< HEAD
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+=======
+  m_LocalScale: {x: 1, y: 1, z: 1}
+>>>>>>> main
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1297215939}
@@ -509,6 +516,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 829399782}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
 --- !u!1 &893886930
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,6 +548,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> main
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,6 +720,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+<<<<<<< HEAD
 --- !u!1 &1130667654
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,6 +855,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> main
 --- !u!1 &1297215938
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,8 +884,13 @@ Transform:
   m_GameObject: {fileID: 1297215938}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD
   m_LocalPosition: {x: 0, y: -0.25, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+=======
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
+>>>>>>> main
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 829399783}
@@ -972,8 +990,13 @@ GameObject:
   - component: {fileID: 1502337691}
   - component: {fileID: 1502337693}
   m_Layer: 0
+<<<<<<< HEAD
   m_Name: PlayerController
   m_TagString: Player
+=======
+  m_Name: Player
+  m_TagString: Untagged
+>>>>>>> main
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1006,7 +1029,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d5b4ad0bc55fa94788afaacb95fe9d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+<<<<<<< HEAD
   speed: 6
+=======
+  speed: 3
+>>>>>>> main
   SpriteRenderer: {fileID: 1297215940}
   m_Animator: {fileID: 1297215941}
 --- !u!54 &1502337691
@@ -1190,6 +1217,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 961739753}
+<<<<<<< HEAD
   - {fileID: 244409262}
   - {fileID: 1145770735}
   - {fileID: 1762218840}
@@ -1199,3 +1227,8 @@ SceneRoots:
   - {fileID: 1502337689}
   - {fileID: 201921003}
   - {fileID: 1201770046}
+=======
+  - {fileID: 1502337689}
+  - {fileID: 244409262}
+  - {fileID: 1762218840}
+>>>>>>> main
