@@ -6,12 +6,12 @@ public class Enemy : CellData3D
 
     protected Animator m_Animator;
     [SerializeField] private Collider m_SearchBox;
+    [SerializeField] private FacingByCamera FacingByCamera;
     protected Rigidbody Rigidbody;
     private Vector3 SearchArea;
     public float m_MaxHealth;
     public int MoveSpeed;
     protected Vector3 TarGetMove;
-    private Vector3 ObjScale;
     protected float m_CurrentHealth;
     protected bool Is_Moving;
     protected bool Is_Attack;
@@ -47,7 +47,7 @@ public class Enemy : CellData3D
         float z = Random.Range(-SearchArea.z, SearchArea.z);
         x += m_BasePos.x;
         z += m_BasePos.z;
-
+        Debug.Log("MoveAround called");
         MoveTo(new Vector3(x, 0, z));
     }
 
@@ -61,8 +61,8 @@ public class Enemy : CellData3D
         Rigidbody = GetComponent<Rigidbody>();
         m_Animator = GetComponent<Animator>();
         SearchArea = m_SearchBox.bounds.extents;
-        ObjScale = transform.localScale;
         Is_Attack = false;
+        MoveAround();
     }
 
     private void Update()
@@ -73,29 +73,34 @@ public class Enemy : CellData3D
         if (!Is_Moving && !Is_Waiting && !Is_Attack)
         {
             MoveAround();
+            
         }
-        ShouldFlip();
     }
 
     private void FixedUpdate()
     {
-            Vector3 NewPos = Vector3.MoveTowards(Rigidbody.position, TarGetMove, MoveSpeed * Time.fixedDeltaTime);
-            Rigidbody.MovePosition(NewPos);
+        if (!Is_Moving)
+            return;
 
-            if (NewPos == TarGetMove)
-            {
-                Is_Moving = false;
+        Vector3 newPos = Vector3.MoveTowards(Rigidbody.position,TarGetMove,MoveSpeed * Time.fixedDeltaTime);
+
+        Rigidbody.MovePosition(newPos);
+
+        if (Vector3.Distance(newPos, TarGetMove) < 0.01f)
+        {
+            Is_Moving = false;
+
+            if (!Is_Waiting)  
                 StartCoroutine(Delay(3f));
-            }
+        }
 
-
+        FacingByCamera.UpdateFacing(TarGetMove - m_Pos);
     }
 
     public virtual void Attack()
     {
         
     }
-
     public virtual void OnAttackFinished()
     {
 
@@ -108,16 +113,6 @@ public class Enemy : CellData3D
        Is_Waiting = false;
     }
 
-    void ShouldFlip()
-    {
-        if (m_Pos.x < TarGetMove.x) //กำลังจะเดินขวา
-        {
-            transform.localScale = new Vector3(-ObjScale.x, ObjScale.y, ObjScale.z);
-        }
-        else if (m_Pos.x > TarGetMove.x)
-        {
-            transform.localScale = ObjScale;
-        }
-    }
+
 
 }

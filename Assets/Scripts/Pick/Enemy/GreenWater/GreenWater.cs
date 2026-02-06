@@ -53,12 +53,12 @@ public class GreenWater : Enemy, TriggerInterface
         }
     }
 
-    void Bite_Attack()
+    void BiteHitBox()
     {
         BiteHitbox.enabled = true;
     }
 
-    void Stop_Attack()
+    void Stop_BiteAttack()
     {
         BiteHitbox.enabled = false;
     }

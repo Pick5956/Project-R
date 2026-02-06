@@ -3,14 +3,15 @@
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private int speed; //ทำให้เห็นในinspector แต่ห้ามclass อื่นยุ่ง;
-
+    [SerializeField] GameObject CameraPivot;
+    [SerializeField] private FacingByCamera FacingByCamera;
 
     private PlayerControls PlayerControls; //ยังไม่ได้ของเพราะแค่ประกาศตัวแปร
     private Rigidbody Rigidbody; //ยังไม่ได้ของเพราะแค่ประกาศตัวแปร
     [SerializeField]  private SpriteRenderer SpriteRenderer;
     [SerializeField]  private Animator m_Animator;
     private Vector3 movement;
-    private Vector3 Scale;
+
     private bool IsMoving;
 
     private void Awake()
@@ -26,7 +27,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         Rigidbody = GetComponent<Rigidbody>(); //ได้ของแล้วเพราะสั่งสร้างมาเก็บไว้
-        Scale = transform.localScale;
     }
 
     public void EnableControl()
@@ -42,23 +42,25 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        Vector2 PlayerPos = PlayerControls.Player.Move.ReadValue<Vector2>();
-        Vector3 flipScale = new Vector3 (-Scale.x, Scale.y, Scale.z);
+        var forward = CameraPivot.transform.forward;
+        var right = CameraPivot.transform.right;    
+
+        Vector2 PlayerInput = PlayerControls.Player.Move.ReadValue<Vector2>();
         m_Animator.SetBool("Moving", movement.sqrMagnitude > 0.001f);
 
-        movement = new Vector3(PlayerPos.x, 0, PlayerPos.y).normalized;
-        if (movement.x > 0.1f)
-        {
-            transform.localScale = flipScale;
-        }
-        else if (movement.x < -0.1f)
-        {
-            transform.localScale = Scale;
-        }
-    }
+        forward.y = 0;
+        forward.Normalize();
+        right.y = 0;
+        right.Normalize();
+
+        movement = (right * PlayerInput.x + forward * PlayerInput.y).normalized;
+
+        FacingByCamera.UpdateFacing(movement);
+    } 
 
     private void FixedUpdate()
     {
         Rigidbody.MovePosition(transform.position + movement * speed * Time.fixedDeltaTime);
     }
+
 }
