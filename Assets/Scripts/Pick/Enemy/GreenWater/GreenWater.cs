@@ -7,8 +7,8 @@ public class GreenWater : Enemy, TriggerInterface
     public Trigger FollowArea; //เพื่อเช็คว่า Trigger ที่เข้ามาเป็นของอันไหน
     public Trigger AttackArea;
     public Trigger Bite;
-
-
+    public Trigger Hitbox;
+    private float BaseAttackSpeed;
 
     void TriggerInterface.OnTriggerEnter(Collider other, Trigger trigger)
     {
@@ -43,14 +43,13 @@ public class GreenWater : Enemy, TriggerInterface
 
     public override void Attack()
     {
-        if (!Is_Waiting) 
-        { 
+
             base.Attack();
             Rigidbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+            BaseAttackSpeed = m_Animator.speed;
             m_Animator.speed = AttackSpeed;
             m_Animator.SetBool("Bite", true);
             Is_Attack = true;
-        }
     }
 
     void BiteHitBox()
@@ -61,6 +60,7 @@ public class GreenWater : Enemy, TriggerInterface
     void Stop_BiteAttack()
     {
         BiteHitbox.enabled = false;
+        m_Animator.speed = BaseAttackSpeed;
     }
 
     public override void OnAttackFinished()
@@ -69,7 +69,7 @@ public class GreenWater : Enemy, TriggerInterface
         Is_Attack = false;
         Rigidbody.constraints =  RigidbodyConstraints.FreezeRotation;
         m_Animator.SetBool("Bite", false);
-        StartCoroutine(Delay(1f));
+
     }
     public void CoolDown()
     {

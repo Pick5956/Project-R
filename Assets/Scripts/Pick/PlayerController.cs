@@ -8,8 +8,10 @@ public class PlayerController : MonoBehaviour
 
     private PlayerControls PlayerControls; //ยังไม่ได้ของเพราะแค่ประกาศตัวแปร
     private Rigidbody Rigidbody; //ยังไม่ได้ของเพราะแค่ประกาศตัวแปร
+    private SkillManager SkillManager;
     [SerializeField]  private SpriteRenderer SpriteRenderer;
     [SerializeField]  private Animator m_Animator;
+    public float PlayerSkillSpeed;
     private Vector3 movement;
 
     private bool IsMoving;
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         Rigidbody = GetComponent<Rigidbody>(); //ได้ของแล้วเพราะสั่งสร้างมาเก็บไว้
+        SkillManager = GetComponent<SkillManager>();
     }
 
     public void EnableControl()
@@ -38,6 +41,12 @@ public class PlayerController : MonoBehaviour
     {
         PlayerControls.Disable();
     }
+
+    public void Attack()
+    {
+        SkillManager.UseSkill(0);
+    }
+
 
     void Update()
     {
@@ -55,7 +64,14 @@ public class PlayerController : MonoBehaviour
 
         movement = (right * PlayerInput.x + forward * PlayerInput.y).normalized;
 
+
         FacingByCamera.UpdateFacing(movement);
+
+
+        if (PlayerControls.Player.Attack.WasPressedThisFrame())
+        {
+            Attack();
+        }
     } 
 
     private void FixedUpdate()

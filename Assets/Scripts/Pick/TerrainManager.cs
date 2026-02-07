@@ -7,6 +7,7 @@ public class TerrainManager : MonoBehaviour
     Vector3 TerrainPos; //ตำแหน่งของTerrain ในโลก
     public FoodObject[] FoodPrefab;
     public Enemy[] EnemyPrefab;
+    public int EnemyCount;
 
     Vector3 RandomPosObj()
     {
@@ -31,7 +32,7 @@ public class TerrainManager : MonoBehaviour
 
     void SpawnEnamy()
     {
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < EnemyCount; i++)
         {
 
         int RandomEnemyIndex = Random.Range(0, EnemyPrefab.Length);

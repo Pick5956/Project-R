@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Enemy : CellData3D
+public class Enemy : CellData3D,DamageAble
 {
 
     protected Animator m_Animator;
@@ -9,22 +9,42 @@ public class Enemy : CellData3D
     [SerializeField] private FacingByCamera FacingByCamera;
     protected Rigidbody Rigidbody;
     private Vector3 SearchArea;
-    public float m_MaxHealth;
     public int MoveSpeed;
     protected Vector3 TarGetMove;
-    protected float m_CurrentHealth;
     protected bool Is_Moving;
     protected bool Is_Attack;
     protected bool Is_Waiting;
-    
+
+
+    //Hp
+    public float m_MaxHp;
+    protected float m_CurrentHp;
+    private float m_CurrentHpPercent;
 
 
     public override void Init(Vector3 coord)
     {
         base.Init(coord);
-        m_CurrentHealth = m_MaxHealth;
+        m_CurrentHp = m_MaxHp;
     }
 
+
+    protected void ChangeEnemyHp(float Hp)
+    {
+        m_CurrentHp += Hp;
+        m_CurrentHp = Mathf.Clamp(m_CurrentHp, 0, m_MaxHp);
+        m_CurrentHpPercent = (m_CurrentHp/m_MaxHp) * 100;
+        if (m_CurrentHp == 0) 
+        {
+            Debug.Log("AA");
+            Destroy(gameObject);
+        }
+    }
+
+    public void TakeDamage(DamageInfo info)
+    {
+        ChangeEnemyHp(info.damage);
+    }
 
 
     Vector3 PlayerPos()
@@ -47,7 +67,6 @@ public class Enemy : CellData3D
         float z = Random.Range(-SearchArea.z, SearchArea.z);
         x += m_BasePos.x;
         z += m_BasePos.z;
-        Debug.Log("MoveAround called");
         MoveTo(new Vector3(x, 0, z));
     }
 
