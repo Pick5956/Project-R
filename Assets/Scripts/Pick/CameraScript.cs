@@ -27,11 +27,11 @@ public class CameraScript : MonoBehaviour
     {
         if (PlayerControls.Player.RotateQ.WasPressedThisFrame())
         {
-            targetY += stepAngle;
+            targetY -= stepAngle;
         }
         if (PlayerControls.Player.RotateE.WasPressedThisFrame())
         {
-            targetY -= stepAngle;
+            targetY += stepAngle;
         }
 
         currentY = Mathf.LerpAngle(

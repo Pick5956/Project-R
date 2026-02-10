@@ -6,7 +6,12 @@ public class AttackHitbox : MonoBehaviour
     {
         if (other.TryGetComponent<DamageAble>(out var target))
         {
-            DamageInfo info = new DamageInfo{damage = 20f};
+            DamageInfo info = new DamageInfo
+            {
+                damage = 20f,
+                direction = (other.transform.position - transform.position).normalized,
+                knockbackforce = 5f
+            };
             target.TakeDamage(info);
         }
     }

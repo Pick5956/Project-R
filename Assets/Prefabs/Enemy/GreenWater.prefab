@@ -267,7 +267,7 @@ Transform:
   m_GameObject: {fileID: 4397376134415942155}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.41885, y: -0, z: 15}
+  m_LocalPosition: {x: -0.96914, y: -0, z: 12.09446}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -305,7 +305,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
@@ -324,13 +324,12 @@ MonoBehaviour:
   m_SearchBox: {fileID: 766875722501329922}
   FacingByCamera: {fileID: 743651445177387761}
   MoveSpeed: 5
-  m_MaxHp: 0
+  m_MaxHp: 100
   BiteHitbox: {fileID: 2185250791087735798}
   AttackSpeed: 2
   FollowArea: {fileID: 7095240383755736647}
   AttackArea: {fileID: 2958518195466260268}
   Bite: {fileID: 6572190162541475667}
-  Hitbox: {fileID: 3143478768302932956}
 --- !u!54 &9185773664599633778
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -404,7 +403,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2537258614154813750}
   - component: {fileID: 1748282398900088123}
-  - component: {fileID: 3143478768302932956}
   m_Layer: 0
   m_Name: Hitbox
   m_TagString: Enemy
@@ -450,18 +448,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &3143478768302932956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6350058454096760975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11c4c88bc34b46848883d2cfcfd43947, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Trigger
 --- !u!1 &7208607960576184299
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +460,7 @@ GameObject:
   - component: {fileID: 7832874657612280170}
   - component: {fileID: 2958518195466260268}
   m_Layer: 0
-  m_Name: AttactArea
+  m_Name: AttackArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

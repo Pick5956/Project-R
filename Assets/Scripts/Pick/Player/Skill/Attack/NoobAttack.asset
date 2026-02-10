@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 837aecb9728aebb40b4c95c8f5db6f1e, type: 3}
+  m_Name: NoobAttack
+  m_EditorClassIdentifier: Assembly-CSharp::SkillData
+  SkillName: NoobAttack
+  icon: {fileID: -3753825769889500098, guid: f59b6f1cccc714c4d867407a30f8b974, type: 3}
+  SkillPrefab: {fileID: 2817153803526760748, guid: e729159871c0d6446a1dfb01a9cb6407, type: 3}

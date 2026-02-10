@@ -13,8 +13,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]  private Animator m_Animator;
     public float PlayerSkillSpeed;
     private Vector3 movement;
+    private bool m_DisableControl;
 
-    private bool IsMoving;
+
 
     private void Awake()
     {
@@ -34,12 +35,12 @@ public class PlayerController : MonoBehaviour
 
     public void EnableControl()
     {
-        PlayerControls.Enable();
+        m_DisableControl = false;
     }
 
     public void DisableControl()
     {
-        PlayerControls.Disable();
+        m_DisableControl = true;
     }
 
     public void Attack()
@@ -50,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
+        if (m_DisableControl) { return; }
         var forward = CameraPivot.transform.forward;
         var right = CameraPivot.transform.right;    
 
@@ -64,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
         movement = (right * PlayerInput.x + forward * PlayerInput.y).normalized;
 
-
+        
         FacingByCamera.UpdateFacing(movement);
 
 
@@ -76,6 +77,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (m_DisableControl) { return; }
         Rigidbody.MovePosition(transform.position + movement * speed * Time.fixedDeltaTime);
     }
 

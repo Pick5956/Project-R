@@ -7,12 +7,11 @@ public class GreenWater : Enemy, TriggerInterface
     public Trigger FollowArea; //เพื่อเช็คว่า Trigger ที่เข้ามาเป็นของอันไหน
     public Trigger AttackArea;
     public Trigger Bite;
-    public Trigger Hitbox;
     private float BaseAttackSpeed;
+ 
 
     void TriggerInterface.OnTriggerEnter(Collider other, Trigger trigger)
     {
-
         if (trigger == AttackArea) 
         {
             Attack();

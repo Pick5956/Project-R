@@ -36,14 +36,14 @@ public class Enemy : CellData3D,DamageAble
         m_CurrentHpPercent = (m_CurrentHp/m_MaxHp) * 100;
         if (m_CurrentHp == 0) 
         {
-            Debug.Log("AA");
             Destroy(gameObject);
         }
     }
 
     public void TakeDamage(DamageInfo info)
     {
-        ChangeEnemyHp(info.damage);
+        ChangeEnemyHp(-info.damage);
+        Knockback(info);
     }
 
 
@@ -123,6 +123,12 @@ public class Enemy : CellData3D,DamageAble
     public virtual void OnAttackFinished()
     {
 
+    }
+
+    void Knockback(DamageInfo info)
+    {
+        if (info.knockbackforce == 0) { return; }
+        Rigidbody.AddForce(info.direction * info.knockbackforce, ForceMode.Impulse);
     }
 
     public IEnumerator Delay(float Delay)
