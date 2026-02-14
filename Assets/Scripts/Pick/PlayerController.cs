@@ -1,21 +1,25 @@
-﻿using UnityEngine;
+﻿using Unity.Cinemachine;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private int speed; //ทำให้เห็นในinspector แต่ห้ามclass อื่นยุ่ง;
+    [SerializeField] private int MoveSpeed; //ทำให้เห็นในinspector แต่ห้ามclass อื่นยุ่ง;
+    [SerializeField] private float JumpHeight;
     [SerializeField] GameObject CameraPivot;
     [SerializeField] private FacingByCamera FacingByCamera;
 
     private PlayerControls PlayerControls; //ยังไม่ได้ของเพราะแค่ประกาศตัวแปร
     private Rigidbody Rigidbody; //ยังไม่ได้ของเพราะแค่ประกาศตัวแปร
     private SkillManager SkillManager;
+    private Collider Collider;
     [SerializeField]  private SpriteRenderer SpriteRenderer;
     [SerializeField]  private Animator m_Animator;
     public float PlayerSkillSpeed;
+    public LayerMask groundLayer;
     private Vector3 movement;
     private bool m_DisableControl;
-
-
+    private bool IsGround;
+    RaycastHit Hit;
 
     private void Awake()
     {
@@ -31,6 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         Rigidbody = GetComponent<Rigidbody>(); //ได้ของแล้วเพราะสั่งสร้างมาเก็บไว้
         SkillManager = GetComponent<SkillManager>();
+        Collider = GetComponent<Collider>();
     }
 
     public void EnableControl()
@@ -73,12 +78,47 @@ public class PlayerController : MonoBehaviour
         {
             Attack();
         }
+        if (PlayerControls.Player.Jump.WasCompletedThisFrame()){
+            Jump();
+        }
     } 
 
+
+    void Jump()
+    {
+        if (isGround())
+        {
+            Rigidbody.AddForce(Vector3.up * JumpHeight, ForceMode.Impulse);
+        }
+    }
+
+        
     private void FixedUpdate()
     {
         if (m_DisableControl) { return; }
-        Rigidbody.MovePosition(transform.position + movement * speed * Time.fixedDeltaTime);
+
+        Vector3 moveDir = movement;
+        if (Physics.Raycast(Collider.bounds.center,Vector3.down,out Hit, Collider.bounds.extents.y + 0.2f , groundLayer))
+        {
+            moveDir = Vector3.ProjectOnPlane(movement, Hit.normal);
+        }
+        Rigidbody.MovePosition(Rigidbody.position + moveDir * MoveSpeed * Time.fixedDeltaTime);
+        
+        if (Rigidbody.linearVelocity.y < 0)
+        {
+            Rigidbody.linearVelocity += Vector3.up * Physics.gravity.y * (1.5f) * Time.fixedDeltaTime;
+        }
+        if (isGround())
+        {
+            Rigidbody.AddForce(Vector3.down * 20f, ForceMode.Acceleration);
+        }
+    }
+
+    bool isGround()
+    {
+        Vector3 origin = Collider.bounds.center;
+        float distance = Collider.bounds.extents.y + 0.1f;
+        return Physics.Raycast(origin,Vector3.down,distance,groundLayer);
     }
 
 }

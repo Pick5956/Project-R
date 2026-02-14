@@ -688,12 +688,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d5b4ad0bc55fa94788afaacb95fe9d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  speed: 15
+  MoveSpeed: 15
+  JumpHeight: 10
   CameraPivot: {fileID: 1203493618}
   FacingByCamera: {fileID: 1502337695}
   SpriteRenderer: {fileID: 1297215940}
   m_Animator: {fileID: 1502337696}
   PlayerSkillSpeed: 2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!54 &1502337691
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -719,8 +723,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 112
-  m_CollisionDetection: 0
+  m_Constraints: 80
+  m_CollisionDetection: 1
 --- !u!136 &1502337693
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -855,67 +859,6 @@ MonoBehaviour:
   EnemyPrefab:
   - {fileID: 6838830529090367875, guid: 0d3b98b4a655b0349aadace08afe123d, type: 3}
   EnemyCount: 10
---- !u!1001 &1668760693
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2430630466789623229, guid: 0d3b98b4a655b0349aadace08afe123d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.12684
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430630466789623229, guid: 0d3b98b4a655b0349aadace08afe123d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430630466789623229, guid: 0d3b98b4a655b0349aadace08afe123d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 12.78917
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430630466789623229, guid: 0d3b98b4a655b0349aadace08afe123d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430630466789623229, guid: 0d3b98b4a655b0349aadace08afe123d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430630466789623229, guid: 0d3b98b4a655b0349aadace08afe123d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430630466789623229, guid: 0d3b98b4a655b0349aadace08afe123d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430630466789623229, guid: 0d3b98b4a655b0349aadace08afe123d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430630466789623229, guid: 0d3b98b4a655b0349aadace08afe123d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430630466789623229, guid: 0d3b98b4a655b0349aadace08afe123d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4397376134415942155, guid: 0d3b98b4a655b0349aadace08afe123d, type: 3}
-      propertyPath: m_Name
-      value: GreenWater
-      objectReference: {fileID: 0}
-    - target: {fileID: 6838830529090367875, guid: 0d3b98b4a655b0349aadace08afe123d, type: 3}
-      propertyPath: m_MaxHp
-      value: 1000
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0d3b98b4a655b0349aadace08afe123d, type: 3}
 --- !u!1 &1700819644
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,7 +870,7 @@ GameObject:
   - component: {fileID: 1700819647}
   - component: {fileID: 1700819646}
   - component: {fileID: 1700819645}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: OverWorldTerrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1115,7 +1058,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5632805809702612176, guid: 482bf69dde40e3a439bb02fe50fb3eff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.92
+      value: 6.82
       objectReference: {fileID: 0}
     - target: {fileID: 5632805809702612176, guid: 482bf69dde40e3a439bb02fe50fb3eff, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1163,5 +1106,4 @@ SceneRoots:
   - {fileID: 729930940}
   - {fileID: 1505642415}
   - {fileID: 2053880609}
-  - {fileID: 1668760693}
   - {fileID: 6036204173386357668}
