@@ -18,8 +18,9 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     private Vector3 movement;
     private bool m_DisableControl;
-    private bool IsGround;
-    RaycastHit Hit;
+    private RaycastHit Hit;
+    private bool MidAirJump;
+
 
     private void Awake()
     {
@@ -86,10 +87,16 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        if (isGround())
+        if (!isGround())
         {
-            Rigidbody.AddForce(Vector3.up * JumpHeight, ForceMode.Impulse);
+            if (!MidAirJump)
+            {
+                return;
+            }
+            Rigidbody.linearVelocity = new Vector3(Rigidbody.linearVelocity.x, 0f, Rigidbody.linearVelocity.z);
+            MidAirJump = false;
         }
+        Rigidbody.AddForce(Vector3.up * JumpHeight, ForceMode.Impulse);
     }
 
         
@@ -102,15 +109,24 @@ public class PlayerController : MonoBehaviour
         {
             moveDir = Vector3.ProjectOnPlane(movement, Hit.normal);
         }
+        
         Rigidbody.MovePosition(Rigidbody.position + moveDir * MoveSpeed * Time.fixedDeltaTime);
         
         if (Rigidbody.linearVelocity.y < 0)
         {
-            Rigidbody.linearVelocity += Vector3.up * Physics.gravity.y * (1.5f) * Time.fixedDeltaTime;
+            Rigidbody.linearVelocity += Vector3.up * Physics.gravity.y * (5f) * Time.fixedDeltaTime;
         }
+        if (Rigidbody.linearVelocity.y > 0)
+        {
+            Rigidbody.linearVelocity += Vector3.up * Physics.gravity.y * (5f) * Time.fixedDeltaTime;
+        }
+
+
+        //เซ็ตให้ตัวติดพื้นมั้ง
         if (isGround())
         {
-            Rigidbody.AddForce(Vector3.down * 20f, ForceMode.Acceleration);
+            //Rigidbody.AddForce(Vector3.down * 20f, ForceMode.Acceleration);
+            MidAirJump = true;
         }
     }
 
